@@ -23,14 +23,65 @@ public class UsersController {
 	@Autowired
 	private UsersService usersService;
 	
+	// "/users/private/info.do" 개인정보 보기 요청 처리
+	@RequestMapping("/users/private/info")
+	public ModelAndView info(HttpSession session){
+		// 1. 세션에 저장된 id 정보를 읽어온다.
+		String id = (String)session.getAttribute("id");
+		// 2. UsersDto 가 담긴 ModelAndView 객체를 리턴 받는다.
+		ModelAndView mView = usersService.getData(id);
+		// 3. forward 이동할 경로를 담고
+		mView.setViewName("users/private/info");
+		// 4. ModelAndview 객체를 리턴해준다.
+		return mView;
+	}
+	
+	
+	// "/users/signout.do" 로그 아웃 요청 처리
+	@RequestMapping("/users/signout")
+	public ModelAndView signout(HttpSession session){
+		//세션 초기화
+		session.invalidate();
+		ModelAndView mView=new ModelAndView();
+		mView.addObject("msg", "로그 아웃 되었습니다.");
+		mView.addObject("redirectUri", 
+				session.getServletContext().getContextPath());
+		mView.setViewName("users/alert");
+		return mView;
+	}
+	
+	// "/users/signin.do" 로그인 요청 처리
+	@RequestMapping("/users/signin")
+	public ModelAndView signin(@ModelAttribute UsersDto dto,
+			@RequestParam String uri, HttpSession session){
+		//아이디가 비밀번호가 유효한지 여부를 확인한다. 
+		boolean isValid=usersService.isValid(dto);
+		ModelAndView mView=new ModelAndView();
+		if(isValid){ //아이디 비밀번호가 맞는 정보인 경우
+			//로그인 처리를 해준다.
+			session.setAttribute("id", dto.getId());
+			mView.addObject("msg", dto.getId()+" 님 로그인 되었습니다.");
+			mView.addObject("redirectUri", uri);
+		}else{
+			//아이디 혹은 비밀번호가 틀리다는 정보를 응답한다.
+			mView.addObject("msg", "아이디 혹은 비밀번호가 틀려요");
+			String location=session.getServletContext().getContextPath()+
+					"/users/signin_form.do?uri="+uri;
+			mView.addObject("redirectUri", location);
+		}
+		//알림 페이지로 forward 이동 시킨다. 
+		mView.setViewName("users/alert");
+		return mView;
+	}
+	
+	
 	// "/users/signin_form.do" 로그인 폼 요청 처리
-	@RequestMapping("users/signin_form")
+	@RequestMapping("/users/signin_form")
 	public String signinForm(HttpSession session){
 		//세션 초기화
 		session.invalidate();
 		//뷰페이지로 forward 이동
 		return "users/signin_form";
-		
 	}
 	
 	// "/users/signup.do" 요청처리
@@ -61,6 +112,7 @@ public class UsersController {
 		return "users/signup_form";
 	}
 }
+
 
 
 
