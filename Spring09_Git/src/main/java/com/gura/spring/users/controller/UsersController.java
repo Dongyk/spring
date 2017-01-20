@@ -17,6 +17,9 @@ public class UsersController {
 	@Autowired
 	private UsersService usersService;
 	
+	// "/users/signup.do" 요청 처리
+	
+	
 	// ajax "/users/checkid.do" 요청 처리
 	@RequestMapping("/users/checkid")
 	@ResponseBody
