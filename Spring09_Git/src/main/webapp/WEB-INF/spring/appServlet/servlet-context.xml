@@ -63,22 +63,8 @@
 	<context:component-scan base-package="com.gura.spring" />
 	<context:component-scan base-package="com.gura.spring.users.*" />
 	<context:component-scan base-package="com.gura.spring.cafe.*" />
-		
-	
 	
 </beans:beans>
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
