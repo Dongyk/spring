@@ -22,32 +22,29 @@ public class CafeDaoImpl implements CafeDao{
 
 	@Override
 	public void insert(CafeDto dto) {
-		// TODO Auto-generated method stub
+		session.insert("cafe.insert", dto);
 		
 	}
 
 	@Override
 	public CafeDto getData(int num) {
-		// TODO Auto-generated method stub
-		return null;
+		CafeDto dto = session.selectOne("cafe.getData", num);
+		return dto;
 	}
 
 	@Override
 	public void increaseViewCount(int num) {
-		// TODO Auto-generated method stub
-		
+		session.update("cafe.increaseViewCount", num);
 	}
 
 	@Override
 	public void update(CafeDto dto) {
-		// TODO Auto-generated method stub
-		
+		session.update("cafe.update", dto);
 	}
 
 	@Override
 	public void delete(int num) {
-		// TODO Auto-generated method stub
-		
+		session.delete("cafe.delete", num);
 	}
 
 }

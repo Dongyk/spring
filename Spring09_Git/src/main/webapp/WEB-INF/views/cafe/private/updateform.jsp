@@ -5,26 +5,37 @@
 <html>
 <head>
 <meta charset="UTF-8"/>
-<title>views/cafe/private/insertform.jsp</title>
+<title>/views/cafe/private/updateform.jsp</title>
 <!-- SmartEditor 관련 javascript 로딩 -->
 <script src="${pageContext.request.contextPath }/
 	SmartEditor/js/HuskyEZCreator.js"></script>
 </head>
 <body>
-<h3>카페 새글 입력 페이지 입니다.</h3>
-<form action="insert.do" method="post">
-	<input type="hidden" name="writer" value="${id }" />
-	<label for="writer">작성자</label>
-	<input type="text" id="writer" 
-		value="${id }" disabled="disabled"/><br/>
-	<label for="title">제목</label>
-	<input type="text" name="title" id="title"/><br/>
-	<textarea name="content" id="ir1" style="width:766px;height:412px;display:none"></textarea>
+<h3>카페글 수정 페이지 입니다.</h3>
+<form action="update.do" method="post">
+	<input type="hidden" name="num" value="${dto.num }"/>
+	<table>
+		<tr>
+			<th>글번호</th>
+			<td>${dto.num }</td>
+		</tr>
+		<tr>
+			<th>작성자</th>
+			<td>${dto.writer }</td>
+		</tr>
+		<tr>
+			<th>제목</th>
+			<td><input type="text" name="title" value="${dto.title }"/></td>
+		</tr>
+		<tr>
+			<th>조회수</th>
+			<td>${dto.viewCount }</td>
+		</tr>
+	</table>
+	
+	<textarea name="content" id="ir1" style="width:766px;height:412px;display:none">${dto.content }</textarea>
 	<div>
-		<input type="button" onclick="pasteHTML();" value="본문에 내용 넣기" />
-		<input type="button" onclick="showHTML();" value="본문 내용 가져오기" />
-		<input type="button" onclick="submitContents(this);" value="서버로 내용 전송" />
-		<input type="button" onclick="setDefaultFont();" value="기본 폰트 지정하기 (궁서_24)" />
+		<input type="button" onclick="submitContents(this);" value="수정확인" />
 	</div>	
 </form>
 <script>

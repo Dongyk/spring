@@ -28,26 +28,41 @@ public class CafeServiceImpl implements CafeService{
 
 	@Override
 	public void insert(CafeDto dto) {
-		// TODO Auto-generated method stub
+		cafeDao.insert(dto);
 		
 	}
 
 	@Override
 	public ModelAndView getData(int num) {
-		// TODO Auto-generated method stub
-		return null;
+		// 1. 글 정보를 얻어온다.
+		CafeDto dto = cafeDao.getData(num);
+		// 2. 조회수를 올린다.
+		cafeDao.increaseViewCount(num);
+		// 3. 글 정보를 ModelAndView 객체에 담는다.
+		ModelAndView mView = new ModelAndView();
+		mView.addObject("dto", dto);
+		//리턴해준다.
+		return mView;
 	}
 
 	@Override
 	public void update(CafeDto dto) {
-		// TODO Auto-generated method stub
-		
+		cafeDao.update(dto);
 	}
 
 	@Override
 	public void delete(int num) {
-		// TODO Auto-generated method stub
-		
+		cafeDao.delete(num);
+	}
+
+	@Override
+	public ModelAndView updateForm(int num) {
+		// 수정할 글 정보를 얻어온다.
+		CafeDto dto = cafeDao.getData(num);
+		// 수정할 글 정보를 ModelAndView 객체에 담고
+		ModelAndView mView = new ModelAndView();
+		// 리턴해준다.
+		return null;
 	}
 
 }
