@@ -17,8 +17,8 @@
 </ul>
 <h3>메뉴</h3>
 <ul>
-	<li><a href="">입금하러 가기</a></li>
-	<li><a href="">상품 목록 보러 가기</a></li>
+	<li><a href="depositform.do">입금하러 가기</a></li>
+	<li><a href="list.do">상품 목록 보러 가기</a></li>
 </ul>
 </body>
 </html>
