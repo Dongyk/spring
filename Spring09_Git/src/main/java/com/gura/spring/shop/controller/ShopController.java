@@ -32,8 +32,7 @@ public class ShopController {
 		//리턴해주기 
 		return mView;
 	}
-	
-	//입금 폼 요청 처리
+	//입금 폼 요청 처리 
 	@RequestMapping("/shop/depositform")
 	public String depositForm(){
 		
@@ -42,14 +41,13 @@ public class ShopController {
 	
 	//입금 요청 처리
 	@RequestMapping("/shop/deposit")
-	public String deposit(@RequestParam String id,
+	public String deposit(@RequestParam String id, 
 			@RequestParam int cash){
-		//ShopService 객체를 이용해서 입금 작업을 한다.
+		//ShopService 객체를 이용해서 입금 작업을 한다. 
 		shopService.deposit(id, cash);
 		return "redirect:/shop/index.do";
 	}
-	
-	//상품 목록 보기 요청 처리
+	//상품 목록 보기 요청 처리 
 	@RequestMapping("/shop/list")
 	public String list(){
 		
@@ -58,16 +56,31 @@ public class ShopController {
 	
 	//상품 구입 요청 처리
 	@RequestMapping("/shop/buy")
-	public ModelAndView buy(@RequestParam String id,
+	public ModelAndView buy(@RequestParam String id, 
 			@RequestParam int price){
 		//서비스를 객체를 이용해서 상품 구입 처리 하기
 		shopService.buy(id, price);
-		ModelAndView mView = new ModelAndView();
+		ModelAndView mView=new ModelAndView();
 		mView.addObject("price", price);
 		mView.setViewName("shop/buyresult");
 		return mView;
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

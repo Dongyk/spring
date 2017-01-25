@@ -34,7 +34,7 @@
 	<update id="update" parameterType="usersDto">
 		UPDATE users
 		SET pwd=#{pwd}, email=#{email}
-		WHERE id=#{id}
+		WHERE id=#{id}	
 	</update>
 	
 	<delete id="delete" parameterType="string">
@@ -42,14 +42,6 @@
 		WHERE id=#{id}
 	</delete>
 </mapper>
-
-
-
-
-
-
-
-
 
 
 
