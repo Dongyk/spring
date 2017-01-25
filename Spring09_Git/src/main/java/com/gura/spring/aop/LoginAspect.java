@@ -15,7 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Component
 public class LoginAspect {
 	
-	@Around("execution(* com.gura.spring.users.controller.UsersController.auth*(..))")
+	@Around("execution(* com.gura.spring.users.controller.UsersController.auth*(..)) || execution(* com.gura.spring.cafe.controller.CafeController.auth*(..))")
 	public Object loginCheck(ProceedingJoinPoint joinPoint) 
 			throws Throwable{
 		// 컨트롤러에 aop 를 적용했을때 HttpServletRequest 참조값 얻어오기
@@ -35,11 +35,11 @@ public class LoginAspect {
 			// joinPoint.proceed() 메소드를 호출하지 않고 바로 리턴하면
 			// aop 가 적용된 메소드안에 있는 작업이 수행되지 않는다.
 			//여기서 리턴해주는 참조값이 aop 가 적용된 메소드에 리턴된다.
-			//그러므로 여기서 리턴해주는 data type 과 aop 가 적용된
-			//메소드의 리턴 type 은 반드시 같아야 한다.
+			//그러므로 여기서 리턴해주는 data type 과 aop 가 적용된 
+			//메소드의 리턴 type 은 반드시 같아야 한다. 
 			return mView;
 		}else{
-			//여기가 수행되는 aop 가 적용된 메소드가 정상 수행된다.
+			//여기가 수행되면 aop 가 적용된 메소드가 정상 수행된다. 
 			return joinPoint.proceed();
 		}
 		
